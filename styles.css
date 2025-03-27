@@ -1,0 +1,833 @@
+:root {
+    --primary-color: #7c3aed;
+    --primary-light: #ddd6fe;
+    --secondary-color: #10b981;
+    --dark-bg: #1f2937;
+    --dark-text: #e5e7eb;
+    --light-bg: #ffffff;
+    --light-text: #1f2937;
+    --section-padding: 4rem 0;
+    --border-radius: 10px;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] {
+    --bg-color: var(--dark-bg);
+    --text-color: var(--dark-text);
+    --card-bg: #374151;
+    --card-text: #e5e7eb;
+    --card-border: #4b5563;
+    --card-title: #e5e7eb;
+}
+
+[data-theme="light"] {
+    --bg-color: var(--light-bg);
+    --text-color: var(--light-text);
+    --card-bg: #f9fafb;
+    --card-text: #1f2937;
+    --card-border: #f0f0f0;
+    --card-title: #222;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color, var(--light-text));
+    background-color: var(--bg-color, var(--light-bg));
+    transition: background-color 0.3s ease, color 0.3s ease;
+    animation: fadeIn 1s ease;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+header {
+    padding: 1.5rem 0;
+    position: sticky;
+    top: 0;
+    background-color: var(--bg-color, var(--light-bg));
+    z-index: 100;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(229, 231, 235, 0.2);
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.theme-toggle {
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+section {
+    padding: var(--section-padding);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+section.animated {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+h1, h2, h3 {
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 2rem;
+    position: relative;
+    display: inline-block;
+}
+
+h2:after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 0;
+    width: 3rem;
+    height: 3px;
+    background-color: var(--primary-color);
+}
+
+p {
+    margin-bottom: 1.5rem;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 6rem 0;
+    background: linear-gradient(135deg, #7c3aed 0%, #3b82f6 100%);
+    color: white;
+    background-size: 200% 200%;
+    animation: gradientAnimation 10s ease infinite;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.cta {
+    margin: 2rem 0;
+    padding: 1rem 1.5rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
+    display: inline-block;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.cta-badge {
+    background-color: rgba(255, 255, 255, 0.25);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* List Styles */
+ul {
+    list-style: none;
+}
+
+.what-i-do ul, .benefits ul, .group-plan ul {
+    display: grid;
+    grid-gap: 2rem;
+    margin: 2rem 0;
+}
+
+.what-i-do ul {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.benefits ul, .group-plan ul {
+    grid-template-columns: 1fr;
+}
+
+.what-i-do li, .benefits li, .group-plan li {
+    background-color: var(--card-bg, #f9fafb);
+    color: var(--card-text);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    display: flex;
+    align-items: flex-start;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.what-i-do li.visible, .benefits li.visible, .group-plan li.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.number, .icon {
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 1rem;
+    flex-shrink: 0;
+}
+
+.icon {
+    font-size: 1.2rem;
+}
+
+li p {
+    margin-bottom: 0;
+    color: var(--card-text);
+}
+
+.note {
+    background-color: rgba(124, 58, 237, 0.1);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    border-left: 4px solid var(--primary-color);
+}
+
+/* Plans Section */
+.plans .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 2rem;
+}
+
+.plan-item {
+    background-color: var(--card-bg, #f9fafb);
+    color: var(--card-text);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    display: flex;
+    align-items: flex-start;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.plan-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.plan-item .icon {
+    font-size: 1.5rem;
+    margin-right: 1.5rem;
+}
+
+.plan-item .details h3 {
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+}
+
+/* Milestones Section */
+.milestones {
+    background-color: rgba(124, 58, 237, 0.05);
+}
+
+.milestone {
+    display: flex;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.milestone:not(:last-child):after {
+    content: '';
+    position: absolute;
+    top: 3rem;
+    left: 1.25rem;
+    width: 2px;
+    height: calc(100% + 1rem);
+    background-color: var(--primary-light);
+    z-index: 1;
+}
+
+.milestone .icon {
+    margin-right: 2rem;
+    z-index: 2;
+}
+
+.milestone .content {
+    flex: 1;
+}
+
+.milestone h3 {
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+}
+
+.milestone .date {
+    font-size: 0.9rem;
+    color: var(--card-text);
+    opacity: 0.7;
+    margin-bottom: 0.5rem;
+}
+
+.milestone a {
+    color: var(--primary-color);
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 0.5rem;
+}
+
+.milestone a:hover {
+    text-decoration: underline;
+}
+
+/* Join Section */
+.join {
+    text-align: center;
+    background: linear-gradient(135deg, #7c3aed 0%, #3b82f6 100%);
+    color: white;
+    background-size: 200% 200%;
+    animation: gradientAnimation 10s ease infinite;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.action-button {
+    background-color: var(--card-bg, white);
+    color: var(--primary-color);
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 500;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.action-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.action-button.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Footer */
+footer {
+    background-color: var(--dark-bg);
+    color: var(--dark-text);
+    padding: 3rem 0 1.5rem;
+}
+
+footer .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+footer h2 {
+    margin-bottom: 0;
+}
+
+footer h2:after {
+    display: none;
+}
+
+.social-icons {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-icons span {
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.social-icons span:hover {
+    color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+footer .bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+/* Contact Cards */
+.contact-cards {
+    display: none;
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 999;
+}
+
+.contact-cards.active {
+    display: flex;
+    gap: 1rem;
+}
+
+.card {
+    background-color: var(--card-bg, var(--light-bg));
+    color: var(--card-text);
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    padding: 1.5rem;
+    width: 250px;
+    text-align: center;
+}
+
+.card h3 {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.qrcode-placeholder {
+    width: 180px;
+    height: 180px;
+    background-color: #e5e7eb;
+    margin: 1rem auto;
+    border-radius: var(--border-radius);
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.qrcode-placeholder:after {
+    content: 'QR码';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #9ca3af;
+}
+
+.qrcode-placeholder:hover {
+    transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 1rem;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .action-button {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    footer .top {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    .milestone {
+        flex-direction: column;
+    }
+    
+    .milestone .icon {
+        margin-bottom: 1rem;
+        margin-right: 0;
+    }
+    
+    .milestone:not(:last-child):after {
+        display: none;
+    }
+    
+    .contact-cards {
+        bottom: 1rem;
+        right: 1rem;
+        flex-direction: column;
+    }
+}
+
+/* 添加过渡效果 */
+a, button, .action-button, .theme-toggle {
+    transition: all 0.3s ease;
+}
+
+/* 添加卡片悬停效果 */
+.what-i-do li:hover, .benefits li:hover, .group-plan li:hover, .plan-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 可点击元素的悬停效果 */
+.action-button, .social-icons span {
+    cursor: pointer;
+}
+
+.social-icons span:hover {
+    color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+/* 渐变背景动画 */
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* 为加载添加动画 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.hero, .join {
+    background-size: 200% 200%;
+    animation: gradientAnimation 10s ease infinite;
+}
+
+/* 为QR码添加过渡动画 */
+.qrcode-placeholder {
+    transition: transform 0.3s ease;
+}
+
+.qrcode-placeholder:hover {
+    transform: scale(1.05);
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 1rem;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .action-button {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    footer .top {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    .milestone {
+        flex-direction: column;
+    }
+    
+    .milestone .icon {
+        margin-bottom: 1rem;
+        margin-right: 0;
+    }
+    
+    .milestone:not(:last-child):after {
+        display: none;
+    }
+    
+    .contact-cards {
+        bottom: 1rem;
+        right: 1rem;
+        flex-direction: column;
+    }
+}
+
+/* Modal 弹出层样式 */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.show {
+    display: flex;
+    animation: fadeIn 0.3s;
+}
+
+.modal-content {
+    background-color: var(--card-bg, white);
+    color: var(--card-text);
+    border-radius: var(--border-radius);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    padding: 2rem;
+    max-width: 350px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
+}
+
+.modal.show .modal-content {
+    transform: scale(1);
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close-modal:hover {
+    color: var(--primary-color);
+}
+
+.qrcode-image {
+    margin: 1.5rem auto;
+    width: 200px;
+    height: 200px;
+    background-color: #f1f5f9;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.qrcode-image img {
+    max-width: 100%;
+    height: auto;
+}
+
+#cta-badge-trigger {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+#cta-badge-trigger:hover {
+    transform: scale(1.05);
+}
+
+/* 调整intro部分的背景和间距 */
+.intro {
+    background-color: var(--bg-color, #f9fafb);
+    padding: 3rem 0;
+}
+
+/* 项目介绍卡片样式 */
+.intro-card {
+    background-color: var(--card-bg, #ffffff);
+    border-radius: 15px;
+    padding: 2rem;
+    margin: 1rem 0 2rem;
+    transition: transform 0.3s ease;
+    border: none;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+#glowing-card {
+    position: relative;
+    z-index: 1;
+}
+
+.glow-container {
+    position: absolute;
+    inset: 0;
+    border-radius: 15px;
+    padding: 1px;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.glow-effect {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: radial-gradient(circle, rgba(124, 58, 237, 1) 0%, rgba(124, 58, 237, 0.6) 50%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(4px);
+    animation: moveGlow 3s linear infinite;
+    transform: translateX(-50%) translateY(-50%);
+    pointer-events: none;
+}
+
+/* 单独处理鼠标跟踪光效的样式 */
+.glow-effect-mouse {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(circle, rgba(124, 58, 237, 0.6) 0%, rgba(124, 58, 237, 0.2) 50%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(8px);
+    transform: translateX(-50%) translateY(-50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes moveGlow {
+    /* 上边缘从左到右 */
+    0% { top: 2px; left: 2px; }
+    12.5% { top: 2px; left: 50%; }
+    25% { top: 2px; left: calc(100% - 2px); }
+    
+    /* 右边缘从上到下 */
+    28% { top: 10%; left: calc(100% - 2px); }
+    32% { top: 25%; left: calc(100% - 2px); }
+    36% { top: 50%; left: calc(100% - 2px); }
+    40% { top: 75%; left: calc(100% - 2px); }
+    50% { top: calc(100% - 2px); left: calc(100% - 2px); }
+    
+    /* 下边缘从右到左 */
+    62.5% { top: calc(100% - 2px); left: 50%; }
+    75% { top: calc(100% - 2px); left: 2px; }
+    
+    /* 左边缘从下到上 */
+    78% { top: 75%; left: 2px; }
+    82% { top: 50%; left: 2px; }
+    86% { top: 25%; left: 2px; }
+    90% { top: 10%; left: 2px; }
+    100% { top: 2px; left: 2px; }
+}
+
+.card-content {
+    position: relative;
+    background-color: var(--card-bg, #ffffff);
+    border-radius: 13px;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+}
+
+/* 修改悬停效果，不改变主动画速度 */
+.intro-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.intro-card h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--card-title, #222);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--card-border, #eee);
+    font-weight: 600;
+}
+
+.intro-card h2:after {
+    display: none;
+}
+
+.intro-content {
+    padding-top: 0.8rem;
+}
+
+.intro-card p {
+    color: var(--card-text, #333333);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+    font-size: 1.05rem;
+    font-weight: 500;
+}
+
+.intro-card p:last-child {
+    margin-bottom: 0;
+}
+
+.modal-content h3 {
+    color: var(--card-title);
+}
+
+.modal-content p {
+    color: var(--card-text);
+} 
